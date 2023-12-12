@@ -1,0 +1,29 @@
+/* Box Model */
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: clamp(300px, 50%, 720px);
+    padding: 16px;
+    text-align: center;
+    font-size: 30px;
+
+}
+
+
+/* Boarders and padding are fixed regardless of screen size */
+.container:hover {
+    font-size: 30px;
+    width: clamp(300px, 50%, 720px);
+    animation-fill-mode: forwards;
+    border: 20px solid black;
+    background-color: aqua;
+    color: black;
+    padding-bottom: 20px;
+    transition: 1s;
+    padding: 16px;
+    text-align: center;
+    transform: rotateY(45deg);
+}

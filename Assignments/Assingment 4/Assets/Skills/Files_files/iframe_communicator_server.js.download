@@ -1,0 +1,81 @@
+"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+eesy.define('iframe_communicator_server', ['iframe_communicator_helper'], function (iframeHelper) {
+    var handlers = {};
+    var callbacks = {};
+    var subscribers = {};
+    var callbackTimeouts = {};
+    function registerSubscriber(source, clientId) {
+        if (iframeHelper.isWindowType(source) && !subscribers[clientId]) {
+            subscribers[clientId] = source;
+        }
+    }
+    function post(clientId, messageHandler, obj, callback) {
+        var _a;
+        var payload = obj !== null && obj !== void 0 ? obj : {};
+        var messageId = iframeHelper.uuidv4();
+        if (callback) {
+            callbacks[messageId] = callback;
+            callbackTimeouts[messageId] = setTimeout(function () {
+                delete callbacks[messageId];
+                delete callbackTimeouts[messageId];
+            }, 5000);
+        }
+        (_a = subscribers[clientId]) === null || _a === void 0 ? void 0 : _a.postMessage(__assign(__assign({}, payload), { messageId: messageId, messageHandler: messageHandler }), '*');
+    }
+    window.addEventListener('message', function (e) {
+        var _a = e.data, messageId = _a.messageId, messageHandler = _a.messageHandler, clientId = _a.clientId;
+        if (messageHandler === 'registerIframe' && clientId) {
+            registerSubscriber(e.source, clientId);
+            return;
+        }
+        if (messageHandler === 'unregisterIframe' && clientId) {
+            delete subscribers[clientId];
+            return;
+        }
+        var fn = messageId && callbacks[messageId];
+        if (fn) {
+            fn(e.data.response, clientId);
+            delete callbacks[messageId];
+            clearTimeout(callbackTimeouts[messageId]);
+            delete callbackTimeouts[messageId];
+            return;
+        }
+        var handler = messageHandler && handlers[messageHandler];
+        if (handler) {
+            handler(e.data, function (response) {
+                var source = e.source;
+                if (iframeHelper.isWindowType(source)) {
+                    source.postMessage({ messageId: e.data.messageId, response: response }, '*');
+                }
+            });
+        }
+    }, false);
+    function invokeAll(messageHandler, obj, callback) {
+        Object.keys(subscribers).forEach(function (clientId) {
+            post(clientId, messageHandler, obj, callback);
+        });
+    }
+    function invoke(clientId, messageHandler, obj, callback) {
+        post(clientId, messageHandler, obj, callback);
+    }
+    function bind(handlerKey, handler) {
+        handlers[handlerKey] = handler;
+    }
+    return {
+        bind: bind,
+        invoke: invoke,
+        invokeAll: invokeAll,
+    };
+});
+//# sourceMappingURL=iframe_communicator_server.js.map

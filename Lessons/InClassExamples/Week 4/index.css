@@ -1,0 +1,17 @@
+.header { 
+    font-size: 4em; /* em is the default size*/
+    color: red;
+}
+
+
+.big-text {
+    font-size: 36px;
+}
+
+h1.big-text {
+    font-size: 64px;
+}
+
+.container .content input.big-text[type="number"] { /*goes down the style specificity and graps the input type that have the class of big-text*/
+    font-size: 100px;
+}

@@ -1,0 +1,219 @@
+body {
+    
+    background-color: rgb(221, 213, 213);
+    font-family: 'Bigelow Rules', cursive;
+    font-family: 'Encode Sans Condensed', sans-serif;
+}
+
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+
+.button {
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    border: white;
+    margin-right: 10px;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button:hover {
+    background-color: #7ab9fe;
+    transition: 1s;
+    color: white;
+    size: 20px;
+    font-size: 15px;
+}
+
+.upper-navbar {
+    padding: 30px;
+    border: 1px;
+    border-color: black;
+    background-color: #7ab9fe;
+    border-radius: 10px;
+    display: flex;
+}
+
+.header-container {
+    height: 500px;
+    width: 100%;
+    background-image: linear-gradient(to right, #7ab9fe, rgb(221, 213, 213));
+    border-radius: 5px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.title {
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.underline-header{
+    width: 100%;
+    height: 8px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    color: black;
+    padding-left: 0;
+}
+
+.underline-education {
+    width: 250px;
+    height: 8px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    margin-left: 7%;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.header-info {
+    margin-right: 200px;
+}
+
+.header-name {
+    margin-right: 100px;
+    margin-left: 150px;
+    color: whitesmoke;
+}
+
+.title {
+    margin-top: 5%;
+    margin-left: 8%;
+}
+
+.education-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex: wrap;
+}
+
+.experience-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+    background-image: linear-gradient(to left, #7ab9fe, rgb(221, 213, 213));
+}
+
+.experience-container .card {
+    margin-top: 35px
+}
+
+.experience-container .card:nth-child(1) {
+    background-color: #7ab9fe;
+    color: black;
+}
+
+.experience-container .card:nth-child(2) {
+    background-color: #9fc4ef;
+    color: black;
+}
+
+.experience-container .card:nth-child(3) {
+    background-color: #becce1;
+    color: black;
+}
+.skilexperiencels-container .card:nth-child(4) {
+    background-color: #dad4d6;
+    color: black;
+}
+.experience-container .card:nth-child(5) {
+    margin-top: 10px;
+    background-color: #adc7e9;
+    color: black;
+}
+
+.experience-container .card:nth-child(1) .card-image {
+    width: 75%;
+    height: 65%;
+    
+}.experience-container .card:nth-child(2) .card-image {
+    width: 100%;
+    
+}.experience-container .card:nth-child(3) .card-image {
+    width: 100%;
+    
+}.experience-container .card:nth-child(4) .card-image {
+    width: 75%;
+    
+}
+.experience-container .card:nth-child(5) .card-image {
+    width: 100%;
+
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+
+.skill-card {
+    background-color: whitesmoke;
+    padding: 35px;
+    border-radius: 5px;
+    width: 120px;
+    height: 120px;
+    align-items: center;
+}
+
+
+.skill-card {
+    margin-right: 50px;
+    margin-top: 35px;
+}
+
+.skill-card .card-image:nth-child(3) {
+    width: 100%
+}
+
+.skill-card .card-image:nth-child(5) {
+    height: 50%;
+}
+
+.skill-card .card-image:nth-child(6) {
+    width: 75%;
+    height: 100%;
+}
+
+.skill-card .card-image {
+    width: 85%;
+    height: 85%;
+}
+
+.skill-card .card-image:nth-child(2) {
+    background-color: whitesmoke;
+}
+
+.card {
+    background-color: whitesmoke;
+    padding: 75px;
+    border-radius: 10px; 
+    width: 185px;
+    height: 185px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+
+}
+
+.card-image {
+    width: 50%;
+    height: 50%;
+    background-color: whitesmoke;
+    align-self: center;
+    border-radius: 5px;
+}

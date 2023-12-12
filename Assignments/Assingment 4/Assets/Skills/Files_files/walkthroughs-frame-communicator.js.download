@@ -1,0 +1,166 @@
+"use strict";
+eesy.define('walkthroughs-frame-communicator', [
+    'eesy-timers',
+    'iframe_communicator_server',
+    'iframe_communicator_client',
+    'walkthroughs',
+    'engine-state',
+    'debug',
+    var_uefMode ? 'uef-messages-handlers' : 'helpitem-handlers',
+], function (eesyTimers, iframe_communicator_server, iframe_communicator_client, walkthroughs, engineState, debugModule, helpitemHandlers) {
+    var controlledByChild = null;
+    var isInControl = false;
+    var CHILD_SYNC_TIMER_ID = 'active_walks:child_sync';
+    var PARENT_SYNC_TIMER_ID = 'active_walks:parent_sync';
+    function isCurrentWindowInControl() {
+        if (isRunningInIframe) {
+            return isInControl;
+        }
+        return controlledByChild === null;
+    }
+    function useContextHandling(callback) {
+        // 'context-handling' needs to be import separately due to circular dependency issue
+        eesyRequire(['context-handling'], function (ctxHandling) {
+            callback(ctxHandling);
+        });
+    }
+    function handleNothingToDisplay() {
+        if (isRunningInIframe) {
+            debug('Iframe has nothing to show');
+            var activeWalks = walkthroughs.getActiveWalks();
+            iframe_communicator_client.invoke('walk:parent:takeControl', { activeWalks: activeWalks });
+            giveUpControl();
+        }
+        else {
+            debug('Parent has nothing to show');
+            askChildrenForNextStep();
+        }
+    }
+    function searchForWalksInCurrentState() {
+        window.dispatchEvent(new CustomEvent('domchanged'));
+    }
+    function initChildListeners() {
+        iframe_communicator_client.bind('walk:child:ask', function (request, response) {
+            walkthroughs.setActiveWalks(request.activeWalks);
+            var res = walkthroughs.hasAnythingToShow();
+            debug(res ? 'Iframe can show next step' : 'Iframe has nothing to show');
+            response(res);
+        });
+        iframe_communicator_client.bind('walk:child:takeControl', function () {
+            debug('Iframe received control');
+            isInControl = true;
+            syncStateWithParent();
+            walkthroughs.startShowing();
+        });
+        iframe_communicator_client.bind('walk:child:revokeControl', giveUpControl);
+        iframe_communicator_client.bind('walk:child:searchForWalks', function () {
+            searchForWalksInCurrentState();
+        });
+    }
+    function initParentListeners() {
+        iframe_communicator_server.bind('walk:parent:stateSync', function (request) {
+            if (request.clientId && request.clientId !== controlledByChild) {
+                iframe_communicator_server.invoke(request.clientId, 'walk:child:revokeControl');
+                return;
+            }
+            walkthroughs.setActiveWalks(request.activeWalks);
+            eesyTimers.stop(CHILD_SYNC_TIMER_ID);
+            eesyTimers.set(CHILD_SYNC_TIMER_ID, 2000, revokeChildControl);
+        });
+        iframe_communicator_server.bind('walk:parent:takeControl', function (request) {
+            if (request.clientId !== controlledByChild) {
+                console.error('Wrong child send state update');
+                return;
+            }
+            debug('Revoking iframe control because it finished');
+            walkthroughs.setActiveWalks(request.activeWalks);
+            revokeChildControl();
+        });
+        iframe_communicator_server.bind('walk:parent:walkFinished', function (request) {
+            var walkId = request.walkId;
+            walkthroughs.setActiveWalks(request.activeWalks);
+            walkthroughs.onWalkClosedByChild(walkId);
+            revokeChildControl();
+        });
+        iframe_communicator_server.bind('walk:parent:sendHandler', function (request) {
+            var _a;
+            var handler = helpitemHandlers.createHelpItemHandler(request.cl, 0, undefined, (_a = request.src) !== null && _a !== void 0 ? _a : '');
+            if (handler) {
+                engineState.viewModel.get().items.push(handler);
+                useContextHandling(function (ctxHandling) { return ctxHandling.handleQueuedContextLinks(); });
+            }
+        });
+    }
+    function initListeners() {
+        if (isRunningInIframe) {
+            initChildListeners();
+        }
+        else {
+            initParentListeners();
+        }
+    }
+    function debug(message) {
+        // debug needs to be enabled both in parent and children window
+        if (debugModule.walksCommunicationEnabled()) {
+            console.log("[Walks debug] %c".concat(isRunningInIframe ? 'Child' : 'Parent', ": %c").concat(message), "color: ".concat(isRunningInIframe ? 'blue' : 'red'), 'color: black;');
+        }
+    }
+    // =========== Parent functions ==================
+    function askChildrenForNextStep() {
+        debug('Requesting help from iframes');
+        var activeWalks = walkthroughs.getActiveWalks();
+        iframe_communicator_server.invokeAll('walk:child:ask', { activeWalks: activeWalks }, function (response, clientId) {
+            if (!controlledByChild && response) {
+                passControlToChild(clientId);
+            }
+        });
+    }
+    function passControlToChild(childId) {
+        debug("Passing control to iframe: ".concat(childId));
+        controlledByChild = childId;
+        var activeWalks = walkthroughs.getActiveWalks();
+        iframe_communicator_server.invoke(childId, 'walk:child:takeControl', { activeWalks: activeWalks });
+        eesyTimers.set(CHILD_SYNC_TIMER_ID, 2000, revokeChildControl);
+    }
+    function revokeChildControl() {
+        debug('Revoking iframe control');
+        eesyTimers.stop(CHILD_SYNC_TIMER_ID);
+        controlledByChild = null;
+        walkthroughs.startShowing();
+    }
+    function searchForNextWalk() {
+        searchForWalksInCurrentState();
+        iframe_communicator_server.invokeAll('walk:child:searchForWalks');
+    }
+    // =========== Child functions ==================
+    function syncStateWithParent() {
+        var activeWalks = walkthroughs.getActiveWalks();
+        iframe_communicator_client.invoke('walk:parent:stateSync', { activeWalks: activeWalks });
+        eesyTimers.set(PARENT_SYNC_TIMER_ID, 500, syncStateWithParent);
+    }
+    function informParentAboutFinishedWalk(walkId) {
+        giveUpControl();
+        var activeWalks = walkthroughs.getActiveWalks();
+        iframe_communicator_client.invoke('walk:parent:walkFinished', { walkId: walkId, activeWalks: activeWalks });
+    }
+    function giveUpControl() {
+        isInControl = false;
+        eesyTimers.stop(PARENT_SYNC_TIMER_ID);
+    }
+    function sendHandlerToParent(handler) {
+        iframe_communicator_client.invoke('walk:parent:sendHandler', {
+            src: handler.src,
+            cl: handler.cl,
+        });
+    }
+    // =============================
+    return {
+        searchForNextWalk: searchForNextWalk,
+        handleNothingToDisplay: handleNothingToDisplay,
+        informParentAboutFinishedWalk: informParentAboutFinishedWalk,
+        initListeners: initListeners,
+        isCurrentWindowInControl: isCurrentWindowInControl,
+        sendHandlerToParent: sendHandlerToParent,
+    };
+});
+//# sourceMappingURL=walkthroughs-frame-communicator.js.map

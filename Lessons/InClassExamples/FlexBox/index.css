@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    background-image: linear-gradient(to right, rgb(181, 86, 174), black );
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.box {
+    padding: 64px;
+    border-radius: 4px;
+}
+
+.red {
+    background-color: crimson;   
+}
+
+.blue:hover {
+    background-color: blue;
+    transition: 1s;
+}
+
+.blue {
+    background-color: aqua;
+}
+.green {
+    background-color: greenyellow;
+}
+.pink {
+    background-color: rgb(255, 0, 136);
+}
+
+.fill {
+    flex: 1;
+}

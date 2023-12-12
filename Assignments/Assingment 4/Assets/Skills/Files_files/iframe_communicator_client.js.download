@@ -1,0 +1,64 @@
+"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+(window.eesy ? eesy.define : define)('iframe_communicator_client', ['jquery', 'iframe_communicator_helper'], function ($, iframeHelper) {
+    var handlers = {};
+    var callbacks = {};
+    var callbackTimeouts = {};
+    var clientId = iframeHelper.uuidv4();
+    function invoke(messageHandler, obj, callback) {
+        var _a;
+        var payload = obj !== null && obj !== void 0 ? obj : {};
+        var messageId = iframeHelper.uuidv4();
+        if (callback) {
+            callbacks[messageId] = callback;
+            callbackTimeouts[messageId] = setTimeout(function () {
+                delete callbacks[messageId];
+                delete callbackTimeouts[messageId];
+            }, 5000);
+        }
+        (_a = window.parent) === null || _a === void 0 ? void 0 : _a.postMessage(__assign(__assign({}, payload), { messageId: messageId, messageHandler: messageHandler, clientId: clientId }), '*');
+    }
+    function registerAsIframe() {
+        invoke('registerIframe');
+        window.addEventListener('beforeunload', function () { return invoke('unregisterIframe'); });
+    }
+    function bind(handlerKey, handler) {
+        handlers[handlerKey] = handler;
+    }
+    $(window).on('message', function (e) {
+        var event = e.originalEvent;
+        if (!event.data) {
+            return;
+        }
+        var _a = event.data, messageId = _a.messageId, messageHandler = _a.messageHandler;
+        var fn = messageId && callbacks[messageId];
+        if (fn) {
+            fn(event.data.response);
+            delete callbacks[messageId];
+            clearTimeout(callbackTimeouts[messageId]);
+            delete callbackTimeouts[messageId];
+            return;
+        }
+        var handler = messageHandler && handlers[messageHandler];
+        if (handler) {
+            handler(event.data, function (response) {
+                var source = event.source;
+                if (iframeHelper.isWindowType(source)) {
+                    source.postMessage({ messageId: event.data.messageId, response: response, clientId: clientId }, '*');
+                }
+            });
+        }
+    });
+    return { invoke: invoke, registerAsIframe: registerAsIframe, bind: bind };
+});
+//# sourceMappingURL=iframe_communicator_client.js.map

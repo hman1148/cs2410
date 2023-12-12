@@ -1,0 +1,14 @@
+.carousel {
+    overflow: hidden;
+    width: 400px;
+}
+.carousel .carousel-motion {
+    display: flex;
+    /* transform: translateX(-300px); */
+    border-radius: 15px;
+}
+
+.carousel .carousel-motion img {
+    border: 1px solid white;
+    border-radius: 15px;
+}

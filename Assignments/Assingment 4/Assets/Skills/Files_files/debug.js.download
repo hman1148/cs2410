@@ -1,0 +1,18 @@
+"use strict";
+eesy.define('debug', [], function () {
+    var Area;
+    (function (Area) {
+        Area["ConditionMatcher"] = "DBG_CONDITION_MATCHER";
+        Area["ElementTemplates"] = "DBG_ELEMENT_TEMPLATES";
+        Area["WalksCommunication"] = "DBG_WALKS_COMMUNICATION";
+    })(Area || (Area = {}));
+    function enabled(area) {
+        return sessionStorage[area] === 'true';
+    }
+    return {
+        conditionMatcherEnabled: function () { return enabled(Area.ConditionMatcher); },
+        elementTemplatesEnabled: function () { return enabled(Area.ElementTemplates); },
+        walksCommunicationEnabled: function () { return enabled(Area.WalksCommunication); },
+    };
+});
+//# sourceMappingURL=debug.js.map

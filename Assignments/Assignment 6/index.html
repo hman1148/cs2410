@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Button/button.css">
+    <link rel="stylesheet" href="Navbar/navbar.css">
+    <link rel="stylesheet" href="Spinner/spinner.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="Carousel/carousel.css">
+    <script src = "Carousel/carousel.js" defer></script>
+    <script src = "Button/button.js" defer></script>
+    <script src = "Navbar/nav.js" defer></script>
+    <script src = "Navbar/navbar-drawer.js" defer></script>
+    <script src="Spinner/spinner.js" defer></script>
+    <title>Web Component Library</title>
+</head>
+<body>
+
+    <!-- <h1 class = "title-main">Stupid Web Components for Smart Developers</h1> -->
+    <nav class = "navbar">Stupid Web Components For Smart Developers</nav>
+    
+    <!-- Begin with the navbar components -->
+    <div class = "navbar-section">
+        <h3 class = "title">The Stupid Navbar</h2>
+        <h4 class = "code-title">Example</h2>
+        
+        <div class = "display-item">
+            <nav class = "navbar-nav">
+                <button id = "icon-button" class = "icon-button">
+                    <span class = "material-icons">menu</span>
+                </button>
+                <h2>Some Title</h2>
+            </nav>
+            <nav id = "drawer" class = "drawer">
+                <a><span class = "material-icons">language</span>Link 1</a>
+                <a><span class = "material-icons">dashboard</span>Link 2</a>
+                <a><span class="material-icons">person</span>Link 3</a>
+                <a><span class = "material-icons">settings</span>Link 4</a>
+            </nav>
+            <!-- <button class = "copy" id = "copyNavDrawer">Copy code</button> -->
+        </div>
+        <div class = "code-section">
+            <h4 class = "code-title">HTML</h4>
+            <pre id = "navbardrawer-HTML" class = "code">
+
+            </pre>
+        </div>
+        <div class = "code-section">
+            <h4 class = "code-title">CSS</h4>
+            <pre id = "navbardrawer-CSS" class = "code">
+
+            </pre>
+        </div>
+        <div class = "code-section">
+            <h4 class = "code-title">JavaScript</h4>
+            <pre id = "navbardrawer-JS" class = "code">
+
+            </pre>
+        </div>
+
+    </div>
+
+    <div class = "button-section">
+        <h2 class = "title">The Stupid Buttons</h2>
+        <h3 class = "code-title">Button Examples</h2>
+        <div class = "display-item">
+            <button class = "btn-blue" id = "btn">Click me</button>
+            <button class = "btn-red" id = "btn">Click me</button>
+            <button class = "floating-button" id = "btn"><span class="material-symbols-outlined">
+                apps
+                </span></button>
+        </div>
+    
+    </div>
+
+    <div class = "code-section">
+        <h4 class = "code-title">HTML</h4>
+        <pre id = "button-HTML" class = "code">
+
+        </pre>
+    </div>
+    <div class = "code-section">
+        <h4 class = "code-title">CSS</h4>
+        <pre id = "button-CSS" class = "code">
+
+        </pre>
+    </div>
+    <div class = "code-section">
+        <h4 class = "code-title">JavaScript</h4>
+        <pre id = "button-JS" class = "code">
+
+        </pre>
+    </div>
+
+    <div class = "spinner-section">
+        <h2 class = "title">The Stupid Spinners</h2>
+        <div class = "display-item">
+            <!-- 1. spinner has to have text and the other has to be interactable by the user -->
+            <div class = "spinner-blue" aria-description = "Loading"></div>
+            <div class = "spinner-text" aria-description = "Loading"><span>Loading</span></div>
+        </div>
+    </div>
+
+    
+    <div class = "code-section">
+        <h4 class = "code-title">HTML</h4>
+        <pre id = "spinner-HTML" class = "code">
+
+        </pre>
+    </div>
+    <div class = "code-section">
+        <h4 class = "code-title">CSS</h4>
+        <pre id = "spinner-CSS" class = "code">
+
+        </pre>
+    </div>
+    <div>        
+        <h2 class = "title">The Stupid Carousel</h2>
+    </div>
+    <div class = "carousel-section">
+        <div class = "display-item">
+            <!-- 1. spinner has to have text and the other has to be interactable by the user -->
+            <div class = "carousel">
+                <div class = "carousel-motion" id = "carousel-motion">
+                    <img src = "Carousel/Assets/img1.jpg" alt = "Image 1" width = "400px"  height="300px">
+                    <img src = "Carousel/Assets/img2 (2).jpg" alt = "Image 2" width = "400px"  height="300px">
+                    <img src = "Carousel/Assets/img3.jpg" alt = "Image 3" width = "400px"  height="300px">
+                    <img src = "Carousel/Assets/img4.jpg" alt = "Image 4" width = "400px"  height="300px">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class = "code-section">
+        <h4 class = "code-title">HTML</h4>
+        <pre id = "carousel-HTML" class = "code">
+
+        </pre>
+    </div>
+    <div class = "code-section">
+        <h4 class = "code-title">CSS</h4>
+        <pre id = "carousel-CSS" class = "code">
+
+        </pre>
+    </div>
+    <div class = "code-section">
+        <h4 class = "code-title">JavaScript</h4>
+        <pre id = "carousel-JS" class = "code">
+
+        </pre>
+    </div>
+
+</body>
+</html>

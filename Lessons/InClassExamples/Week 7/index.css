@@ -1,0 +1,19 @@
+:root {
+    --background-color: white; 
+    --text-color: black;
+}
+
+button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.square {
+    --top-offset: 0px;
+    --left-offset: 0px;
+    transform: translate(var(--left-offset), var(--top-offset));
+    background-color: aqua;
+    width: 150px;
+    height: 150px;
+
+}

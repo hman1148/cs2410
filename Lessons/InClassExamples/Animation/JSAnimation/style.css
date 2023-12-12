@@ -1,0 +1,11 @@
+body {
+    margin: 0px;
+    height: 100vh;
+    background-color: whitesmoke;
+}
+
+#square {
+    width: 128px;
+    height: 128px;
+    background-color: aqua;
+}

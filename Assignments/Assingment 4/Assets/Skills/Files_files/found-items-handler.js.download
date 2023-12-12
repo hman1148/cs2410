@@ -1,0 +1,25 @@
+"use strict";
+eesy.define('found-items-handler', ['presentation'], function (presentation) {
+    return { create: create };
+    function create() {
+        var foundItems = [];
+        return {
+            addFoundItem: addFoundItem,
+            clearFoundItems: clearFoundItems,
+            getFoundItemsString: getFoundItemsString,
+        };
+        function addFoundItem(id) {
+            var found = foundItems.find(function (i) { return i.id === id; });
+            if (!found) {
+                foundItems.push({ id: id });
+            }
+        }
+        function clearFoundItems() {
+            foundItems = [];
+        }
+        function getFoundItemsString() {
+            return foundItems.map(function (i) { return i.id; }).join(',');
+        }
+    }
+});
+//# sourceMappingURL=found-items-handler.js.map

@@ -1,0 +1,50 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    background-color: #0f2439;
+    color: white;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    gap: 4px;
+    min-width: 380px;
+    width: clamp(280px, 50%, 600px);
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-element input {
+    padding: 8px 16px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+/* How to target different browser conditions. In this case we change the screen when it's less than 800px
+@media screen and (min-width: 650px){ 
+    .login-form {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1000px){ 
+    .login-form {
+        width: 600px;
+    }
+} */

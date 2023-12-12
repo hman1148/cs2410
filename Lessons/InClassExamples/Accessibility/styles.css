@@ -1,0 +1,18 @@
+body {
+    margin: 0px;
+    padding: 16px;
+}
+
+.note {
+    border-radius: 4px;
+
+}
+
+.note .note-content {
+    height: 0px;
+    overflow: hidden;
+}
+
+.note.visible .note-content {
+    height: unset;
+}

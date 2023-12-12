@@ -1,0 +1,44 @@
+.btn {
+    padding: 16px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    background-color: aqua;
+    color: black;
+}
+
+.btn:hover {
+    padding: 16px 36px;
+    transition: 3s;
+    background-color: white;
+    color: black;
+}
+
+.text-input {
+    margin-top: 32px;
+    position: relative;
+}
+.text-input span {
+    left: 8px;
+    position: absolute;
+}
+ 
+.text-input input {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+.text-input:has(input:focus) span {
+    top: -32px;
+}
+
+.dark-mode {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+body[data-theme="dark"] {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}

@@ -1,0 +1,36 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+    padding: 16px 32px;
+    border: none;
+    background-color: aqua;
+    border-radius: 46px;
+    color: black;
+    text-transform: uppercase;
+    cursor: pointer;
+    /* transition-property: background-color;
+    transition-duration: .3s;
+    transition-timing-function: ease; */
+    transition: all, .3s ease;
+}
+
+.button:hover {
+    background-color: black;
+    color: white;
+}
+
+.button[data-clicked ="false"] {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, .24), 0px 1px 2px rgba(0, 0, 0, .12);
+}
+.button[data-clicked ="true"] {
+    box-shadow: 0,0,0, rgba(0, 0, 0, 0);
+}
+
+
+.make-me-bigger {
+    height: 30px;
+    
+}
+

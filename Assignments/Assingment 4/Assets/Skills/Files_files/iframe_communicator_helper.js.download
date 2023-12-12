@@ -1,0 +1,14 @@
+"use strict";
+(window.eesy ? eesy.define : define)('iframe_communicator_helper', [], function () {
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (char) {
+            var r = (Math.random() * 16) | 0, v = char == 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        });
+    }
+    function isWindowType(source) {
+        return Boolean(source && !(source instanceof MessagePort) && !(source instanceof ServiceWorker));
+    }
+    return { uuidv4: uuidv4, isWindowType: isWindowType };
+});
+//# sourceMappingURL=iframe_communicator_helper.js.map

@@ -1,0 +1,59 @@
+pre {
+    overflow: auto;
+}
+
+.navbar-nav {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    padding: 20px;
+    gap: 8px;
+    background-color: #6C6F7D;
+    color: white;
+    left: 0;
+    right: 0;
+    border-radius: 15px;
+}
+
+.icon-button {
+    background-color: transparent;
+    padding: 6px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.drawer {
+    position: absolute;
+    top: 275px;
+    border-radius: 15px;
+    left: -410px;
+    bottom: 0px;
+    width: 300px;
+    background-color: #219ebc;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    transition: all .5s ease;
+    margin-left: 25px;
+}
+
+.drawer[data-open="true"] {
+    left: 0px;
+}
+
+.drawer > a {
+    display: flex;
+    padding: 16px 16px;
+    align-items: center;
+    gap: 8px;
+    color: whitesmoke;   
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.drawer > a:hover {
+    background-color: grey;
+    color: white;
+    border-radius: 15px;
+}

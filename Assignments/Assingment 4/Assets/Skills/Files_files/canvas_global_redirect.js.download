@@ -1,0 +1,9 @@
+// Rewrite 12/2020
+$.getScript('https://elearn.usu.edu/canvas/branding/js/canvas_global.js', function () {
+    console.log("New USU Canvas Global JS Loaded");
+});
+
+// Old JS just in case 
+// $.getScript('https://elearn.usu.edu/designtools/custom/usu/js/production_canvas_global.js', function () {
+//     console.log("Canvas Global JS Loaded");
+// });

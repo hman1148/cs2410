@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+}
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    font-style: bold;
+}
+
+#main {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+    margin-top: 50px;
+    padding: 16px;
+}
+
+.my-input {
+    
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>I am on the home page!</h1>
+    <a href="/profile"><button>Go to profile</button></a>
+    <table id ="users"></table>
+    <script>
+        const getUsers = async () => {
+            const respones = await fetch("/users");
+            const data = await respones.json();
+            return data;
+        
+        
+
+        const table = document.getElementById("users");
+        const elements = users.map(user => 
+            `<tr>
+                <td>${user.name}</td>
+                <td>${user.age}</td>
+            </tr>`
+        );
+        table.innerHTML = elements.join('');
+        }
+        getUsers();
+
+    </script>
+</body>
+</html>

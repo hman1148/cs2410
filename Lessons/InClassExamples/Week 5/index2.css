@@ -1,0 +1,17 @@
+:root { /* The base class for all html elements*/
+    font-family: 'Encode Sans Condensed', sans-serif;/*Most fonts are sans-serif font */
+}
+/* 
+body:hover {
+    transform:scaleY(30px);
+    transform: rotateY(45deg);
+    transition:  3s;
+} */
+
+h1 {
+    /* background-image: line(to right, pink, red, green, blue, aqua, purple); */
+    background-image: radial-gradient(to right, pink, aqua);
+    color: rgb(123, 120, 120);
+    border-radius: 4px;
+    clip-path: ;
+}
